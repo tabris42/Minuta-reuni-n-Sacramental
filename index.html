@@ -37,46 +37,228 @@
         .btn-print { background-color: var(--primary-blue); color: white; width: 100%; font-size: 1.2rem; margin-top: 40px; padding: 15px; }
         
         @media print {
-            @page { 
-                margin: 1cm; /* Margen de seguridad para impresoras estándar */
-                size: portrait; 
-            }
-            body { 
-                background: white; 
-                padding: 0; /* El margen ahora lo da @page */
-            }
-            
-            .container { 
-                box-shadow: none; 
-                border: 4px solid #3498db !important; 
-                width: 100% !important; 
-                max-width: 100% !important; 
-                padding: 15px; /* Reducción ligera para maximizar espacio interno */
-                display: block;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-            
+            @page { margin: 1cm; size: portrait; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: 4px solid #3498db !important; width: 100% !important; padding: 15px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .btn-add, .btn-print, .btn-remove { display: none !important; }
-            
-            input, textarea { 
-                border: none !important; 
-                border-bottom: 1px solid #333 !important; 
-                border-radius: 0 !important;
-                padding: 5px 0 !important;
-                background: transparent !important;
-            }
-
-            .section-title { 
-                background: #ecf0f1 !important; 
-                border-left: 5px solid #3498db !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
+            input, textarea { border: none !important; border-bottom: 1px solid #333 !important; border-radius: 0 !important; padding: 5px 0 !important; background: transparent !important; }
+            .section-title { background: #ecf0f1 !important; border-left: 5px solid #3498db !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
     </style>
 </head>
 <body>
+
+<datalist id="lista-himnos">
+    <option value="1. Ya rompe el alba">
+    <option value="2. El Espíritu de Dios">
+    <option value="3. Ya regocijemos">
+    <option value="4. Bandera de Sión">
+    <option value="5. Oh Dios de Israel">
+    <option value="6. Israel, Jesús os llama">
+    <option value="7. ¡Despertad, oh reyes de la tierra!">
+    <option value="8. El alba ya rompe">
+    <option value="9. Santos, venid">
+    <option value="10. Te damos, Señor, nuestras gracias">
+    <option value="11. Guíame a Ti">
+    <option value="12. Dios da valor">
+    <option value="13. ¡Regocijad! Dios es Rey">
+    <option value="14. Dulce es Tu obra">
+    <option value="15. Loor al Profeta">
+    <option value="16. ¡Qué maravillas Dios obró!">
+    <option value="17. Venid, los que a Dios amáis">
+    <option value="18. Hijos de nuestro Padre">
+    <option value="19. Por Tus dones loor cantamos">
+    <option value="20. Dios de nuestros padres">
+    <option value="21. Oh Sión, santuario de libertad">
+    <option value="22. En las cumbres de los montes">
+    <option value="23. Bella Sión">
+    <option value="24. Venid a Sión">
+    <option value="25. Id a Sión">
+    <option value="26. Hijos del Señor, venid">
+    <option value="27. Oh Sión, que en la cumbre brillas">
+    <option value="28. Te damos loor">
+    <option value="29. Jesús de Nazaret">
+    <option value="30. A Cristo Rey Jesús">
+    <option value="31. ¡Gloria a Dios!">
+    <option value="32. El amor del Salvador">
+    <option value="33. Elevad vuestra voz">
+    <option value="34. El monte de Jehová">
+    <option value="35. Hoy con gozo nos vemos">
+    <option value="36. Sé humilde">
+    <option value="37. Haz el bien">
+    <option value="38. Bandera de Sión">
+    <option value="39. Hay un rincón cerca del hogar">
+    <option value="40. Trabajad con fervor">
+    <option value="41. Qué firmes cimientos">
+    <option value="42. ¿Quién sigue al Señor?">
+    <option value="43. Jehová es mi luz">
+    <option value="44. ¡Grande eres Tú!">
+    <option value="45. Bandera de Sión">
+    <option value="46. Venid, adorad al Rey">
+    <option value="47. Conmigo quédate">
+    <option value="48. Cristianos, hoy cantad">
+    <option value="49. Dios bendiga a nuestro Profeta">
+    <option value="50. Oh Dios, Eterno Padre">
+    <option value="51. Guíame a Ti">
+    <option value="52. Al contemplar Tu creación">
+    <option value="53. Oh, está todo bien">
+    <option value="54. La fe">
+    <option value="55. Siempre fiel">
+    <option value="56. A dondequiera que Dios me mande">
+    <option value="57. Para siempre Dios esté con vos">
+    <option value="58. Jehová mi Pastor es">
+    <option value="59. El Señor mi Pastor es">
+    <option value="60. Venid, benditos de mi Padre">
+    <option value="61. Señor, yo te seguiré">
+    <option value="62. ¿En el mundo he hecho yo bien?">
+    <option value="63. Do loable es la virtud">
+    <option value="64. Juventud de Israel">
+    <option value="65. Llamados a servir">
+    <option value="66. Bandera de Sión">
+    <option value="67. Venid a Cristo">
+    <option value="68. Oh mi Padre">
+    <option value="69. Cerca de Ti, Señor">
+    <option value="70. Dios manda a misioneros">
+    <option value="71. La luz de Dios">
+    <option value="72. Creo en Cristo">
+    <option value="73. Yo sé que vive mi Señor">
+    <option value="74. Cantad alegres">
+    <option value="75. Castillo fuerte es nuestro Dios">
+    <option value="76. Con valor marchemos">
+    <option value="77. ¡Oh, vana la sabiduría del hombre!">
+    <option value="78. Si hay gozo en tu corazón">
+    <option value="79. Un ángel del Señor">
+    <option value="80. Dios vive">
+    <option value="81. La oración">
+    <option value="82. De rodillas">
+    <option value="83. Nuestra oración">
+    <option value="84. Oh dulce, grata oración">
+    <option value="85. Secreta oración">
+    <option value="86. Tal como el sol">
+    <option value="87. Escuchamos Tu voz">
+    <option value="88. La voz de Dios">
+    <option value="89. Dios, escúchanos orar">
+    <option value="90. Sublime amor">
+    <option value="91. Testimonio">
+    <option value="92. A Ti, Señor">
+    <option value="93. Mi Redentor vive">
+    <option value="94. ¡Regocijad! Jesús nació">
+    <option value="95. Noche de luz">
+    <option value="96. ¡Gritad de gozo!">
+    <option value="97. El Espíritu de Dios">
+    <option value="98. Himno de la cena">
+    <option value="99. Oh Dios, Eterno Padre">
+    <option value="100. Jesús de Nazaret">
+    <option value="101. La cena de la Santa Cena">
+    <option value="102. Cantemos todos a Jesús">
+    <option value="103. Al prepararnos para la Santa Cena">
+    <option value="104. Pedimos hoy por Ti">
+    <option value="105. En memoria de Tu muerte">
+    <option value="106. Tu faz, Señor, hoy vemos">
+    <option value="107. Ya el día se fue">
+    <option value="108. Manso y humilde">
+    <option value="109. Mientras bebemos el agua">
+    <option value="110. Al comer el pan">
+    <option value="111. Jesús, el de Nazaret">
+    <option value="112. La oración del profeta">
+    <option value="113. José Smith">
+    <option value="114. Sagrada visión">
+    <option value="115. El Espíritu de Dios">
+    <option value="116. Cristo ha resucitado">
+    <option value="117. Muerte es ya vencida">
+    <option value="118. Asombro me da">
+    <option value="119. Cuan asombroso es">
+    <option value="120. Jesús en pesebre">
+    <option value="121. Noche de luz">
+    <option value="122. ¡Al mundo paz!">
+    <option value="123. Venid, adoremos">
+    <option value="124. Escuchad el canto">
+    <option value="125. Jesús en pesebre">
+    <option value="126. Oh pueblecito de Belén">
+    <option value="127. Allá en el pesebre">
+    <option value="128. Tuve hambre y me disteis de comer">
+    <option value="129. Un pobre forastero">
+    <option value="130. Venid a Mí">
+    <option value="131. El Señor me dio un templo">
+    <option value="132. Las familias pueden ser eternas">
+    <option value="133. El amor de Dios">
+    <option value="134. Noche de luz">
+    <option value="135. Soy un hijo de Dios">
+    <option value="136. Haz el bien">
+    <option value="137. ¿Dónde hay amor?">
+    <option value="138. Ama el Pastor">
+    <option value="139. Siento el amor de mi Salvador">
+    <option value="140. Mandó a Su Hijo">
+    <option value="141. Escudriñar, meditar y orar">
+    <option value="142. Cantad alegres">
+    <option value="143. Hazme andar en la luz">
+    <option value="144. Cabeza, cara, hombros, pies">
+    <option value="145. Pequeño niño soy">
+    <option value="146. Dios vive">
+    <option value="147. Al leer las Escrituras">
+    <option value="148. Sigo a los profetas">
+    <option value="149. La Iglesia de Jesucristo">
+    <option value="150. El bautismo">
+    <option value="151. Cuando me bautice">
+    <option value="152. El Espíritu Santo">
+    <option value="153. La barra de hierro">
+    <option value="154. Cuán asombroso es">
+    <option value="155. Siento el Espíritu de Dios">
+    <option value="156. En el pueblo de Judea">
+    <option value="157. Pienso en las cosas hermosas">
+    <option value="158. Mi Padre Celestial me ama">
+    <option value="159. Gracias damos por los valles">
+    <option value="160. Haz el bien">
+    <option value="161. Soy un hijo de Dios">
+    <option value="162. Escudriñar, meditar y orar">
+    <option value="163. Siento el amor de mi Salvador">
+    <option value="164. Hazme andar en la luz">
+    <option value="165. ¿Dónde hay amor?">
+    <option value="166. Acompáñame">
+    <option value="167. En un lejano cerro">
+    <option value="168. Al Salvador Jesús">
+    <option value="169. Manso y humilde">
+    <option value="170. Venid a Cristo">
+    <option value="171. Oración de un niño">
+    <option value="172. Cristo es mi luz">
+    <option value="173. Amad a otros">
+    <option value="174. Soy un hijo de Dios">
+    <option value="175. Escudriñar, meditar y orar">
+    <option value="176. Siento el amor de mi Salvador">
+    <option value="177. Hazme andar en la luz">
+    <option value="178. Mandó a Su Hijo">
+    <option value="179. ¿Dónde hay amor?">
+    <option value="180. Ama el Pastor">
+    <option value="181. Sigo a los profetas">
+    <option value="182. El bautismo">
+    <option value="183. Cuando me bautice">
+    <option value="184. Trabajar es un placer">
+    <option value="185. El Espíritu Santo">
+    <option value="186. La barra de hierro">
+    <option value="187. Siento el Espíritu de Dios">
+    <option value="188. Pienso en las cosas hermosas">
+    <option value="189. Mi Padre Celestial me ama">
+    <option value="190. Gracias damos por los valles">
+    <option value="191. El valor de Nephi">
+    <option value="192. Siento el amor de mi Salvador">
+    <option value="193. Soy un hijo de Dios">
+    <option value="194. Haz el bien">
+    <option value="195. Escudriñar, meditar y orar">
+    <option value="196. Hazme andar en la luz">
+    <option value="197. Mandó a Su Hijo">
+    <option value="198. ¿Dónde hay amor?">
+    <option value="199. Ama el Pastor">
+    <option value="200. Sigo a los profetas">
+    <option value="201. El bautismo">
+    <option value="202. Cuando me bautice">
+    <option value="203. Amad a otros">
+    <option value="204. El Espíritu Santo">
+    <option value="205. La barra de hierro">
+    <option value="206. Siento el Espíritu de Dios">
+    <option value="207. Pienso en las cosas hermosas">
+    <option value="208. Mi Padre Celestial me ama">
+    <option value="209. Venid a mí">
+</datalist>
 
 <div class="container">
     <h1>Minuta Reunión Sacramental <br><small>Barrio Las Nieves</small></h1>
@@ -104,7 +286,7 @@
 
     <div class="section-title">INICIO</div>
     <div class="grid-header">
-        <div><label>Himno Inicial (Nº):</label><input type="text"></div>
+        <div><label>Himno Inicial (Nº):</label><input type="text" list="lista-himnos"></div>
         <div><label>Dirige:</label><input type="text"></div>
     </div>
     <div class="input-group">
@@ -130,10 +312,10 @@
     <div class="section-title">SERVICIO SACRAMENTAL</div>
     <div class="input-group">
         <label>Himno Sacramental (Nº):</label>
-        <input type="text">
+        <input type="text" list="lista-himnos">
     </div>
 
-    <div class="section-title">DISCURSOS Y MÚSICA</div>
+    <div class="section-title">DISCURSOS</div>
     <div id="programa-container">
         <div class="row-inputs">
             <input type="text" placeholder="1er Discursante">
@@ -148,7 +330,7 @@
 
     <div class="section-title">CIERRE</div>
     <div class="grid-header">
-        <div><label>Himno Final (Nº):</label><input type="text"></div>
+        <div><label>Himno Final (Nº):</label><input type="text" list="lista-himnos"></div>
         <div><label>Última Oración:</label><input type="text"></div>
     </div>
 
@@ -162,7 +344,7 @@
         const container = document.getElementById('anuncios-container');
         const div = document.createElement('div');
         div.className = 'row-anuncio';
-        div.innerHTML = `<input type="text" placeholder="Escriba un anuncio de estaca o barrio..."><button class="btn-remove" onclick="this.parentElement.remove()">X</button>`;
+        div.innerHTML = `<input type="text" placeholder="Escriba un anuncio..."><button class="btn-remove" onclick="this.parentElement.remove()">X</button>`;
         container.appendChild(div);
     }
 

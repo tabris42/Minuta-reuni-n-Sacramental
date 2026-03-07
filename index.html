@@ -6,17 +6,19 @@
     <title>Minuta Sacramental - Barrio Las Nieves</title>
     <style>
         :root { --primary-blue: #2c3e50; --accent-blue: #3498db; --light-gray: #f4f7f6; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--light-gray); padding: 20px; color: #333; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--light-gray); padding: 20px; color: #333; margin: 0; }
         
-        /* Contenedor con el borde azul solicitado */
         .container { 
-            max-width: 850px; 
+            max-width: 800px; 
             background: white; 
             margin: 0 auto; 
             padding: 30px; 
             border-radius: 8px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 4px solid var(--accent-blue); /* Borde azul llamativo */
+            border: 4px solid var(--accent-blue); 
+            -webkit-print-color-adjust: exact; 
+            print-color-adjust: exact;
+            box-sizing: border-box;
         }
         
         h1 { text-align: center; color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); margin-bottom: 20px; padding-bottom: 10px; font-size: 1.6rem; text-transform: uppercase; }
@@ -35,16 +37,28 @@
         .btn-print { background-color: var(--primary-blue); color: white; width: 100%; font-size: 1.2rem; margin-top: 40px; padding: 15px; }
         
         @media print {
-            @page { margin: 1cm; }
-            body { background: white; padding: 0; }
+            @page { 
+                margin: 1cm; /* Margen de seguridad para impresoras estándar */
+                size: portrait; 
+            }
+            body { 
+                background: white; 
+                padding: 0; /* El margen ahora lo da @page */
+            }
+            
             .container { 
                 box-shadow: none; 
-                border: 1px solid #eee !important; /* Borde muy tenue para impresión */
-                width: 100%; 
-                max-width: 100%; 
-                padding: 0; 
+                border: 4px solid #3498db !important; 
+                width: 100% !important; 
+                max-width: 100% !important; 
+                padding: 15px; /* Reducción ligera para maximizar espacio interno */
+                display: block;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
+            
             .btn-add, .btn-print, .btn-remove { display: none !important; }
+            
             input, textarea { 
                 border: none !important; 
                 border-bottom: 1px solid #333 !important; 
@@ -52,18 +66,13 @@
                 padding: 5px 0 !important;
                 background: transparent !important;
             }
+
             .section-title { 
-                background: transparent !important; 
-                border: none !important;
-                border-bottom: 2px solid #000 !important; 
-                padding: 5px 0 !important;
-                margin-top: 20px !important;
-                color: black !important;
-                text-transform: uppercase;
+                background: #ecf0f1 !important; 
+                border-left: 5px solid #3498db !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
-            .grid-header, .row-inputs, .row-anuncio { gap: 30px !important; margin-bottom: 15px !important; }
-            label { color: black !important; }
-            h1 { font-size: 24pt !important; margin-bottom: 30px !important; }
         }
     </style>
 </head>

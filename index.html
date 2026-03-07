@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minuta Sacramental - Barrio Las Nieves</title>
+    <style>
+        :root { --primary-blue: #2c3e50; --accent-blue: #3498db; --light-gray: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--light-gray); padding: 20px; color: #333; }
+        
+        /* Contenedor con el borde azul solicitado */
+        .container { 
+            max-width: 850px; 
+            background: white; 
+            margin: 0 auto; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 4px solid var(--accent-blue); /* Borde azul llamativo */
+        }
+        
+        h1 { text-align: center; color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); margin-bottom: 20px; padding-bottom: 10px; font-size: 1.6rem; text-transform: uppercase; }
+        .grid-header { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; font-size: 0.9rem; color: #444; margin-bottom: 5px; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #dcdde1; border-radius: 4px; box-sizing: border-box; font-size: 1rem; background: #fff; }
+        
+        .section-title { background: #ecf0f1; padding: 10px; margin: 25px 0 15px 0; border-left: 5px solid var(--accent-blue); font-weight: bold; color: var(--primary-blue); font-size: 1.1rem; }
+        .row-inputs { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; margin-bottom: 8px; }
+        .row-anuncio { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 8px; }
+        
+        button { cursor: pointer; border: none; border-radius: 4px; font-weight: bold; transition: 0.2s; }
+        .btn-add { background-color: #27ae60; color: white; padding: 8px 15px; margin: 5px 0 15px 0; font-size: 0.85rem; }
+        .btn-remove { background: #e74c3c; color: white; padding: 5px 10px; }
+        .btn-print { background-color: var(--primary-blue); color: white; width: 100%; font-size: 1.2rem; margin-top: 40px; padding: 15px; }
+        
+        @media print {
+            @page { margin: 1cm; }
+            body { background: white; padding: 0; }
+            .container { 
+                box-shadow: none; 
+                border: 1px solid #eee !important; /* Borde muy tenue para impresión */
+                width: 100%; 
+                max-width: 100%; 
+                padding: 0; 
+            }
+            .btn-add, .btn-print, .btn-remove { display: none !important; }
+            input, textarea { 
+                border: none !important; 
+                border-bottom: 1px solid #333 !important; 
+                border-radius: 0 !important;
+                padding: 5px 0 !important;
+                background: transparent !important;
+            }
+            .section-title { 
+                background: transparent !important; 
+                border: none !important;
+                border-bottom: 2px solid #000 !important; 
+                padding: 5px 0 !important;
+                margin-top: 20px !important;
+                color: black !important;
+                text-transform: uppercase;
+            }
+            .grid-header, .row-inputs, .row-anuncio { gap: 30px !important; margin-bottom: 15px !important; }
+            label { color: black !important; }
+            h1 { font-size: 24pt !important; margin-bottom: 30px !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Minuta Reunión Sacramental <br><small>Barrio Las Nieves</small></h1>
+
+    <div class="grid-header">
+        <div><label>Fecha:</label><input type="date" id="fecha"></div>
+        <div><label>Asistencia:</label><input type="text" placeholder="Total asistentes"></div>
+    </div>
+    <div class="grid-header">
+        <div><label>Preside:</label><input type="text"></div>
+        <div><label>Dirige:</label><input type="text"></div>
+    </div>
+    <div class="input-group">
+        <label>Reconocimientos / Visitantes:</label>
+        <textarea rows="2" placeholder="Nuevos miembros, autoridades visitantes, etc."></textarea>
+    </div>
+
+    <div class="section-title">ANUNCIOS</div>
+    <div id="anuncios-container">
+        <div class="row-anuncio">
+            <input type="text" placeholder="Escriba un anuncio de estaca o barrio...">
+        </div>
+    </div>
+    <button class="btn-add" onclick="agregarAnuncio()">+ Agregar Anuncio</button>
+
+    <div class="section-title">INICIO</div>
+    <div class="grid-header">
+        <div><label>Himno Inicial (Nº):</label><input type="text"></div>
+        <div><label>Dirige:</label><input type="text"></div>
+    </div>
+    <div class="input-group">
+        <label>Primera Oración:</label>
+        <input type="text">
+    </div>
+
+    <div class="section-title">RELEVOS, SOSTENIMIENTOS Y OTROS</div>
+    
+    <label>RELEVOS (Nombre y Llamamiento anterior):</label>
+    <div id="relevos-container"></div>
+    <button class="btn-add" onclick="agregarFila('relevos-container', 'Nombre', 'Llamamiento')">+ Agregar Relevo</button>
+
+    <label style="margin-top:10px">SOSTENIMIENTOS (Nombre y Nuevo Llamamiento):</label>
+    <div id="sostenimientos-container"></div>
+    <button class="btn-add" onclick="agregarFila('sostenimientos-container', 'Nombre', 'Llamamiento')">+ Agregar Sostenimiento</button>
+
+    <div class="input-group">
+        <label>Otros (Bendiciones, Confirmaciones, etc.):</label>
+        <textarea rows="2"></textarea>
+    </div>
+
+    <div class="section-title">SERVICIO SACRAMENTAL</div>
+    <div class="input-group">
+        <label>Himno Sacramental (Nº):</label>
+        <input type="text">
+    </div>
+
+    <div class="section-title">DISCURSOS Y MÚSICA</div>
+    <div id="programa-container">
+        <div class="row-inputs">
+            <input type="text" placeholder="1er Discursante">
+            <input type="text" placeholder="Tema">
+        </div>
+        <div class="row-inputs">
+            <input type="text" placeholder="2do Discursante">
+            <input type="text" placeholder="Tema">
+        </div>
+    </div>
+    <button class="btn-add" onclick="agregarFila('programa-container', 'Nombre', 'Tema')">+ Agregar Fila</button>
+
+    <div class="section-title">CIERRE</div>
+    <div class="grid-header">
+        <div><label>Himno Final (Nº):</label><input type="text"></div>
+        <div><label>Última Oración:</label><input type="text"></div>
+    </div>
+
+    <button class="btn-print" onclick="window.print()">IMPRIMIR MINUTA</button>
+</div>
+
+<script>
+    document.getElementById('fecha').valueAsDate = new Date();
+
+    function agregarAnuncio() {
+        const container = document.getElementById('anuncios-container');
+        const div = document.createElement('div');
+        div.className = 'row-anuncio';
+        div.innerHTML = `<input type="text" placeholder="Escriba un anuncio de estaca o barrio..."><button class="btn-remove" onclick="this.parentElement.remove()">X</button>`;
+        container.appendChild(div);
+    }
+
+    function agregarFila(containerId, ph1, ph2) {
+        const container = document.getElementById(containerId);
+        const div = document.createElement('div');
+        div.className = 'row-inputs';
+        div.innerHTML = `<input type="text" placeholder="${ph1}"><input type="text" placeholder="${ph2}"><button class="btn-remove" onclick="this.parentElement.remove()">X</button>`;
+        container.appendChild(div);
+    }
+</script>
+
+</body>
+</html>
